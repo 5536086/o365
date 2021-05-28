@@ -3,3 +3,14 @@ O365管理系统是一个以java语言开发的基于Microsoft Graph Restful API
 
 使用说明请参考
 https://hostloc.com/thread-846732-1-1.html
+
+
+# Docker 
+基于v1.1.1版的docker
+```bash
+docker push vanyouseea/o365
+docker run -d -p 9527:9527 vanyouseea/o365
+
+#如果你之前使用过，但是不想手动迁移数据，那么可以这样做，/root/o365/data是你本地的文件夹
+docker run -d -p 9527:9527 -v /root/o365/data:/data vanyouseea/o365
+```
