@@ -13,12 +13,23 @@
 			background-image:url('edu.jpg');
 			background-repeat: no-repeat;
 			background-attachment: fixed;
-			background-position: 50% 50%;
+			background-position: 100% 50%;
 			width : 100%;
 			margin: 0 auto;
 		}
 		table{
 		    margin: auto;
+		}
+	</style>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
+	<style type="text/css"> 
+		@media(max-width:960px){
+			body {
+				width:100%;
+				background-image:url('edu.jpg');
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+			} 
 		}
 	</style>
 </head>
@@ -65,6 +76,7 @@
 			var inviteCd = $('#inviteCd').textbox('getText');
 			var password = passwordGen();
 			
+			
 			if(displayName!=''&&mailNickname!=''&&inviteCd!=''){
 				$.ajax({
 					type : "POST",
@@ -80,6 +92,7 @@
 						var strs = result.split("|");
 						if(strs[0]=="0"){
 							var userPrincipalName = strs[1];
+							$.messager.alert('请求成功', "<div><font color='green'>账号已创建，请登录<a href='https://www.office.com' target='_blank'>office.com</a>重置密码后进行使用<br>邮箱："+userPrincipalName+"<br>密码："+password+"</font></div>" ,'');							
 							$('#refertips').html("<div><font color='green'>账号已创建，请登录<a href='https://www.office.com' target='_blank'>office.com</a>重置密码后进行使用<br>邮箱："+userPrincipalName+"<br>密码："+password+"</font></div>");
 							flag = true;
 						}

@@ -52,7 +52,7 @@ public class CreateOfficeUserByInviteCd {
 	@Value("${UA}")
     private String ua;
 	
-	@CacheEvict(value= {"cacheOfficeUser","cacheInviteInfo"}, allEntries = true)
+	@CacheEvict(value= {"cacheOfficeUser","cacheInviteInfo","cacheOfficeUserSearch"}, allEntries = true)
 	public String createCommonUser(String mailNickname, String displayName, String inviteCd, String password){
 		String resultMsg = "失败";
 		Optional<TaInviteInfo> opt = tii.findById(inviteCd);
@@ -169,7 +169,7 @@ public class CreateOfficeUserByInviteCd {
 									ResponseEntity<String> response2= restTemplate.postForEntity(endpoint, requestEntity2, String.class);
 									if(response2.getStatusCodeValue()==200) {
 										response2.getBody();
-										tiiDo.setResult(ou.getUserPrincipalName());
+										tiiDo.setResult(ou.getUserPrincipalName()+"|"+password);
 										tiiDo.setInviteStatus("3");
 										tii.save(tiiDo);
 										resultMsg = "0|"+ou.getUserPrincipalName();
@@ -190,6 +190,12 @@ public class CreateOfficeUserByInviteCd {
 									return resultMsg;
 								}
 							}
+						}
+						else {
+							tiiDo.setResult(ou.getUserPrincipalName()+"|"+password);
+							tiiDo.setInviteStatus("3");
+							tii.save(tiiDo);
+							resultMsg = "0|"+ou.getUserPrincipalName();
 						}
 					}
 					else {
